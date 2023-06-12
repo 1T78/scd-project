@@ -1,5 +1,4 @@
-package com.project;
-
+Login code:
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,138 +15,142 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
 
-/**
- *
- * @author Tom Marvolo Riddle
- */
+public class Login implements ActionListener {
+private JFrame frame;
+private JPanel centerPanel;
+private JPanel northPanel;
+private JTextField usernameTextField;
+private JPasswordField passwordField;
+private JButton submitButton;
+private JButton backButton;
+private JLabel headerLabel;
+private JLabel logoLabel;
+private JLabel usernameLabel;
+private JLabel passwordLabel;
+private JLabel medicineLabel1;
 
-public class Login implements ActionListener
-{
-    JFrame frame ;
-    JPanel center , north ;
-    JTextField username_tf ;
-    JPasswordField password_tf;
-    JButton submit  , back;
-    JLabel header , logo , username , password , uname , pass , medicine1 , medicine2;
-    Login()
-    {
-        frame = new JFrame();
-        center = new JPanel();
-        north = new JPanel();
-        
-        username_tf = new JTextField();
-        password_tf = new JPasswordField();
-        username = new JLabel("Username :");
-        password = new JLabel("Password :");
-        submit = new JButton("Submit");
-        back = new JButton("Back");
-        header = new JLabel("Medical Management System");
-        logo = new JLabel(new ImageIcon(new ImageIcon("C:\\Users\\chetan\\OneDrive\\Desktop\\Advanced java micro-project\\src\\logo.png").getImage().getScaledInstance(60,50, Image.SCALE_DEFAULT)));
-        medicine1 = new JLabel(new ImageIcon(new ImageIcon("C:\\Users\\chetan\\OneDrive\\Desktop\\Advanced java micro-project\\src\\medical.png").getImage().getScaledInstance(512,512, Image.SCALE_DEFAULT)));
-        medicine2 = new JLabel(new ImageIcon(new ImageIcon("C:\\Users\\chetan\\OneDrive\\Desktop\\Advanced java micro-project\\src\\medical.png").getImage().getScaledInstance(512,512, Image.SCALE_DEFAULT)));
-        uname = new JLabel("admin");
-        pass = new JLabel("1234");
-        
-        submit.setForeground(new Color(255,250,250));
-        submit.setBackground(new Color(0,0,0));
-        back.setForeground(new Color(255,250,250));
-        back.setBackground(new Color(0,0,0));
-        
-        //---------set font to labels------------------------ 
-        header.setFont(new Font("Bebas Neue" , Font.BOLD , 45));
-        username.setFont(new Font("Bebas Neue" , Font.PLAIN , 17));
-        password.setFont(new Font("Bebas Neue" , Font.PLAIN , 17));
-        
-        //------------set layout to frame , center(center panel) and north(north panel)-------
-        frame.setLayout(new BorderLayout(7,7));
-        center.setLayout(null);
-        north.setLayout(null);
-        
-        //------------------set tooltip to username_tf and password_tf on center panel------------
-        username_tf.setToolTipText("Enter username"); 
-        password_tf.setToolTipText("Enter password"); 
-        
-        submit.addActionListener(this);
-        back.addActionListener(this);
-        
-        username_tf.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        password_tf.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        
-        //------------------set bounds to components on center panel------------
-        username.setBounds(450, 170, 100, 25);
-        password.setBounds(450, 230, 100, 25);
-        username_tf.setBounds(600, 170, 200, 25);
-        password_tf.setBounds(600, 230, 200, 25);
-        back.setBounds(500, 285, 80, 30);
-        submit.setBounds(650, 285, 80, 30);
-        medicine1.setBounds(0, 20, 512, 512);
-        medicine2.setBounds(765, 20, 512, 512);
-        
-        logo.setBounds(300,15, 80, 70);
-        header.setBounds(380, 15, 800, 70);
-        
-        //----------------add coponents on center panel (north)-------------
-        north.add(header);
-        north.add(logo);
-        
-        //------------------set border to components on center panel------------
-        center.setBorder(BorderFactory.createMatteBorder(7, 7, 7, 7, new Color(0, 128, 0)));
-        north.setBorder(BorderFactory.createMatteBorder(7, 7, 7, 7, new Color(0, 128, 0)));
-        username_tf.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        password_tf.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        
-        //----------------add coponents on center panel (center)-------------
-        center.add(username_tf);
-        center.add(password_tf);
-        center.add(submit);
-        center.add(back);
-        center.add(username);
-        center.add(password);
-        center.add(medicine1);
-        center.add(medicine2);
-        
-        //------------------set background to panels in frame-------------------------
-        center.setBackground(new Color(152, 251, 152));
-        north.setBackground(new Color(152, 251, 152));
-        
-        //---------------------set size to panels in frame-------------------------
-        north.setPreferredSize(new Dimension(100,100));
-        
-        //-----------------------add panel to frame-------------------------
-        frame.add(center , BorderLayout.CENTER);
-        frame.add(north , BorderLayout.NORTH);
-        
-        //--------------- frame settings -------------------    
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setVisible(true);
-    }
-    public void actionPerformed(ActionEvent ae)
-    {
-        if(ae.getSource() == submit)
-        {
-            if( username_tf.getText().equals(uname.getText())  && password_tf.getText().equals(pass.getText()))
-            {
-                new Admin_GUI();
-                frame.dispose();
-            }
-            else if(username_tf.getText().equals("")  || password_tf.getText().equals(""))
-            {
-                JOptionPane.showMessageDialog(null, "Use can't place fields empty.");
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "Username or Password is Invalid.");
-            }
-            
-        }
-        else if(ae.getSource() == back)
-        {
-            new Welcome();
-            frame.dispose();
-        }
-    }
+private JLabel medicineLabel2;
+private JLabel username;
+private JLabel password;
+private String validUsername = &quot;admin&quot;;
+private String validPassword = &quot;1234&quot;;
+
+public Login() {
+frame = new JFrame();
+centerPanel = new JPanel();
+northPanel = new JPanel();
+usernameTextField = new JTextField();
+passwordField = new JPasswordField();
+usernameLabel = new JLabel(&quot;Username:&quot;);
+passwordLabel = new JLabel(&quot;Password:&quot;);
+submitButton = new JButton(&quot;Submit&quot;);
+backButton = new JButton(&quot;Back&quot;);
+headerLabel = new JLabel(&quot;Medical Management System&quot;);
+logoLabel = new JLabel(new ImageIcon(new ImageIcon(&quot;C:\\Users\\chetan\\OneDrive\\Desktop\\Advanced
+java micro-project\\src\\logo.png&quot;).getImage().getScaledInstance(60,50, Image.SCALE_DEFAULT)));
+medicineLabel1 = new JLabel(new ImageIcon(new
+ImageIcon(&quot;C:\\Users\\chetan\\OneDrive\\Desktop\\Advanced java micro-
+project\\src\\medical.png&quot;).getImage().getScaledInstance(512,512, Image.SCALE_DEFAULT)));
+medicineLabel2 = new JLabel(new ImageIcon(new
+ImageIcon(&quot;C:\\Users\\chetan\\OneDrive\\Desktop\\Advanced java micro-
+project\\src\\medical.png&quot;).getImage().getScaledInstance(512,512, Image.SCALE_DEFAULT)));
+username = new JLabel(validUsername);
+password = new JLabel(validPassword);
+
+submitButton.setForeground(new Color(255, 250, 250));
+submitButton.setBackground(new Color(0, 0, 0));
+backButton.setForeground(new Color(255, 250, 250));
+backButton.setBackground(new Color(0, 0, 0));
+
+// Set font to labels
+
+headerLabel.setFont(new Font(&quot;Bebas Neue&quot;, Font.BOLD, 45));
+usernameLabel.setFont(new Font(&quot;Bebas Neue&quot;, Font.PLAIN, 17));
+passwordLabel.setFont(new Font(&quot;Bebas Neue&quot;, Font.PLAIN, 17));
+
+// Set layout to frame, center (center panel) and north (north panel)
+frame.setLayout(new BorderLayout(7, 7));
+centerPanel.setLayout(null);
+northPanel.setLayout(null);
+
+// Set tooltip to usernameTextField and passwordField on center panel
+usernameTextField.setToolTipText(&quot;Enter username&quot;);
+passwordField.setToolTipText(&quot;Enter password&quot;);
+
+submitButton.addActionListener(this);
+backButton.addActionListener(this);
+
+usernameTextField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+passwordField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+// Set bounds to components on center panel
+usernameLabel.setBounds(450, 170, 100, 25);
+passwordLabel.setBounds(450, 230, 100, 25);
+usernameTextField.setBounds(600, 170, 200, 25);
+passwordField.setBounds(600, 230, 200, 25);
+backButton.setBounds(500, 285, 80, 30);
+submitButton.setBounds(650, 285, 80, 30);
+medicineLabel1.setBounds(0, 20, 512, 512);
+medicineLabel2.setBounds(765, 20, 512, 512);
+
+logoLabel.setBounds(300, 15, 80, 70);
+headerLabel.setBounds(380, 15, 800, 70);
+
+// Add components on center panel (north)
+northPanel.add(headerLabel);
+northPanel.add(logoLabel);
+
+// Set border to components on center panel
+centerPanel.setBorder(BorderFactory.createMatteBorder(7, 7, 7, 7, new Color(0, 128, 0)));
+northPanel.setBorder(BorderFactory.createMatteBorder(7, 7, 7, 7, new Color(0, 128, 0)));
+usernameTextField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+passwordField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+// Add components on center panel (center)
+centerPanel.add(usernameTextField);
+centerPanel.add(passwordField);
+centerPanel.add(submitButton);
+centerPanel.add(backButton);
+centerPanel.add(usernameLabel);
+centerPanel.add(passwordLabel);
+centerPanel.add(medicineLabel1);
+centerPanel.add(medicineLabel2);
+
+// Set background to panels in frame
+centerPanel.setBackground(new Color(152, 251, 152));
+northPanel.setBackground(new Color(152, 251, 152));
+
+// Set size to panels in frame
+northPanel.setPreferredSize(new Dimension(100, 100));
+
+// Add panel to frame
+frame.add(centerPanel, BorderLayout.CENTER);
+frame.add(northPanel, BorderLayout.NORTH);
+
+// Frame settings
+
+frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+frame.setVisible(true);
+}
+
+public void actionPerformed(ActionEvent ae) {
+if (ae.getSource() == submitButton) {
+String enteredUsername = usernameTextField.getText();
+String enteredPassword = new String(passwordField.getPassword());
+
+if (enteredUsername.equals(validUsername) &amp;&amp; enteredPassword.equals(validPassword)) {
+new Admin_GUI();
+frame.dispose();
+} else if (enteredUsername.equals(&quot;&quot;) || enteredPassword.equals(&quot;&quot;)) {
+JOptionPane.showMessageDialog(null, &quot;You can&#39;t leave fields empty.&quot;);
+} else {
+JOptionPane.showMessageDialog(null, &quot;Username or Password is Invalid.&quot;);
+}
+} else if (ae.getSource() == backButton) {
+new Welcome();
+frame.dispose();
+}
+}
 }
